@@ -1,0 +1,56 @@
+@import '../../assets/style/index'
+
+.boxChild
+    width: 100%
+    height: auto
+
+    margin: 1rem 0 3rem 0
+
+.boxInfo
+    font-size: 1.4rem
+    text-decoration: underline
+    padding-bottom: 2.5rem
+
+    display: flex
+    justify-content: flex-end
+    align-items: center
+
+.boxPages
+    display: flex
+    //justify-content: center
+    align-items: center
+
+.page
+    $size: 3rem
+    color: $black
+    width: $size
+    height: $size
+    display: flex
+    justify-content: center
+    align-items: center
+    cursor: pointer
+
+    font-size: 1.5rem
+
+    &:nth-child(1)
+        margin-left: 0
+
+    &:hover
+        color: $dark_grey
+
+.pageChange
+    $size: 4rem
+    width: $size
+    height: $size
+
+    > span
+        $size: 1rem
+        height: $size
+        width: $size
+
+        display: flex
+        justify-content: center
+        align-items: center
+
+.current
+    color: $dark_grey

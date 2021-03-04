@@ -1,0 +1,4 @@
+module.exports = {
+    GET_PRODUCT: 'GET_PRODUCT',
+    CLEAR_PRODUCT_STATE: 'CLEAR_PRODUCT_STATE'
+}
