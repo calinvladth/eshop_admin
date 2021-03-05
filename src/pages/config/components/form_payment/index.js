@@ -58,6 +58,7 @@ const FormPaymentComponent = ({data, timestamp}) => {
                     style={{color: 'red'}}
                     href="https://stripe.com/docs/currencies"
                     target="_blank"
+                    rel="noreferrer"
                 >Supported Currencies</a></label>
                 <input
                     type="text"

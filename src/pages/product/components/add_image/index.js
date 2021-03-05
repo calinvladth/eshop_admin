@@ -23,7 +23,7 @@ const AddImage = ({product_id}) => {
             <input
                 style={{display: 'none'}}
                 type="file" id="file"
-                accept="image/*"
+                accept="image/jpeg, image/jpg"
                 multiple={true}
                 onChange={(e) => submitImage(e)}/>
             <label className={style.boxLabel} htmlFor="file">

@@ -12,7 +12,7 @@ export const ClearProductState = () => (dispatch, getState) => {
 export const GetProduct = (pk) => (dispatch, getState) => {
     axios({
         'method': 'GET',
-        'url': `${api}/products/${pk}/`
+        'url': `${api}/products/${pk}/?shop=${localStorage.getItem('shop')}`
     })
         .then(response => dispatch({type: GET_PRODUCT, data: response.data}))
         .catch(error => console.log('ERROR FETCHING PRODUCT'))

@@ -14,7 +14,7 @@ import {SelectShopPath} from "../../pages/select_shop";
 const HeaderComponent = () => {
     const location = useLocation()
     const dispatch = useDispatch()
-    const {config, check_shop} = useSelector(state => state)
+    const {check_shop} = useSelector(state => state)
 
     return (
         <div className={style.box}>
