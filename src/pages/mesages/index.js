@@ -6,6 +6,8 @@ import ItemComponent from "./components/item";
 import {useDispatch, useSelector} from "react-redux";
 import {GetMessages} from "../../redux/messages/actions";
 import Pagination from "../../components/pagination";
+import {useHistory} from "react-router-dom";
+import {addQuery, useQuery} from "../../services/url";
 
 export const MessagesPath = '/messages'
 
@@ -13,15 +15,27 @@ const MessagesPage = () => {
     const dispatch = useDispatch()
     const {messages} = useSelector(state => state)
 
+    // Query
+    const history = useHistory()
+    const query = useQuery()
+    const page = query.get('page') || 1
+    let filters_data = {}
+    filters_data['page'] = query.get('page') || 1
+
     useEffect(() => {
         document.title = 'Messages From Shop'
-        pagination()
+        dispatch(GetMessages(page, filters_data))
         // eslint-disable-next-line
-    }, [dispatch])
+    }, [
+        dispatch,
+        filters_data.page
+    ])
 
 
     const pagination = (page = 1) => {
-        dispatch(GetMessages(page))
+        // If no page query, set to 1
+        filters_data['page'] = page
+        history.push(MessagesPath + `?${addQuery(filters_data)}`)
     }
 
     return (

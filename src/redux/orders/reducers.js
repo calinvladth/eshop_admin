@@ -1,5 +1,3 @@
-import {pagination} from "../../services/pagination";
-
 const {GET_ORDERS} = require("./types");
 const initalState = {
     success: false,
@@ -15,12 +13,8 @@ const OrdersReducers = (state = initalState, action) => {
             return {
                 ...state,
                 ...action.data,
-                data: pagination(action.data.data, action.limit, action.page),
-                pagination: {
-                    limit: action.limit,
-                    total_pages: Math.ceil(action.data.data.length / action.limit),
-                    total_items: action.data.data.length
-                },
+                data: action.data.data,
+                pagination: action.data.pagination,
                 loaded: true
             }
 

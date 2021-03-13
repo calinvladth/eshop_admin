@@ -8,21 +8,41 @@ import AddSvg from "../../assets/icons/add";
 import {NewProductPath} from "../new_product";
 import TitleComponent from "./components/title";
 import Pagination from "../../components/pagination";
+import {useHistory} from "react-router-dom";
+import {addQuery, useQuery} from "../../services/url";
 
 
 export const ProductsPath = '/products'
 
 const ProductsPage = () => {
+    // const [showFilters, setShowFilters] = useState(false)
+    const {products} = useSelector(state => state)
     const dispatch = useDispatch()
-    const products = useSelector(state => state.products)
+
+    // Query
+    const history = useHistory()
+    const query = useQuery()
+    const page = query.get('page') || 1
+    let filters_data = {}
+    filters_data['page'] = query.get('page') || 1
+    if (query.get('sort_by')) filters_data['sort_by'] = query.get('sort_by')
+    if (query.get('category')) filters_data['category'] = query.get('category')
+
     useEffect(() => {
         document.title = 'Products'
-        pagination()
+        dispatch(GetProducts(page, filters_data))
         // eslint-disable-next-line
-    }, [dispatch])
+    }, [
+        dispatch,
+        filters_data.sort_by,
+        filters_data.page,
+        filters_data.category
+    ])
 
-    const pagination = (page = 1) => {
-        dispatch(GetProducts(page))
+    function pagination(page = 1) {
+        // If no page query, set to 1
+        filters_data['page'] = page
+        history.push(ProductsPath + `?${addQuery(filters_data)}`)
     }
 
     return (
@@ -55,7 +75,7 @@ const ProductsList = ({products, pagination}) => (
             </div>
 
             {
-                products.loaded
+                products.loaded && products.success
                     ?
                     products.data.map(o => <div key={o.id}>
                         <ItemComponent product={o}/>

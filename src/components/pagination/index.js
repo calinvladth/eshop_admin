@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import style from './index.module.sass'
 import LeftArrowSvg from "../../assets/icons/left_arrow";
 import RightArrowSvg from "../../assets/icons/right_arrow";
@@ -6,14 +6,26 @@ import RightArrowSvg from "../../assets/icons/right_arrow";
 const pagination = {
     limit: 6,
     total_pages: 3,
-    current: 1
+    total_items: 0,
+    current: 1,
+    range: {
+        low: 1,
+        high: 1
+    }
 }
 
-const Pagination = ({data = pagination, align = 'center', info = true, action, children}) => {
-    const limit = data.limit
+const filtersInitialState = {
+    show: false,
+    action: ''
+}
+
+const Pagination = ({data = pagination, align = 'center', info = true, action, filters = filtersInitialState, children}) => {
     const total = data.total_pages
-    const total_items = data.total_items
     const [current, setCurrent] = useState(1)
+
+    useEffect(() => {
+        setCurrent(data.current_page)
+    }, [data.current_page])
 
     const pageNumbersStyle = {
         justifyContent: align
@@ -32,10 +44,19 @@ const Pagination = ({data = pagination, align = 'center', info = true, action, c
     }
 
     return (
-        <div>
+        <div className={style.box}>
             {
                 info && <div className={style.boxInfo}>
-                    <p>Showing {current * limit - limit + 1} - {total_items} of {total_items} results</p>
+                    <div>
+                        {
+                            filters.show && <button onClick={() => filters.action()}
+                                                    className="button button--full">{filters.name} Filters</button>
+                        }
+
+                    </div>
+                    <div>
+                        <p className="font__paragraph">Showing {data.range.low} - {data.range.high} of {data.total_items} results</p>
+                    </div>
                 </div>
             }
 
@@ -54,7 +75,6 @@ const Pagination = ({data = pagination, align = 'center', info = true, action, c
 
                 {
                     pageNumbers.map(o => {
-                        // If the page matches the condition, show it
                         let show = false
 
                         if (current + 1 === o || current - 1 === o) show = true
@@ -64,7 +84,7 @@ const Pagination = ({data = pagination, align = 'center', info = true, action, c
 
                         return show && <span
                             key={o}
-                            className={`${style.page} ${current === o && style.current}`}
+                            className={`font__paragraph ${style.page} ${current === o && style.current}`}
                             onClick={() => changePage(o)}
                         >{o}</span>
                     })

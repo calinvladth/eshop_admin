@@ -32,7 +32,7 @@ const ImageComponent = ({image, index}) => {
                         : <img
                             onError={() => notLoaded(item)}
                             alt=""
-                            src={api + item.path}
+                            src={item.path && api + item.path}
                         />
                 }
 

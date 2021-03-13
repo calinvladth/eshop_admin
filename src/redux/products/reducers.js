@@ -1,5 +1,4 @@
 import {GET_PRODUCTS} from "./types";
-import {pagination} from "../../services/pagination";
 
 const initialState = {
     success: false,
@@ -15,12 +14,9 @@ const ProductsReducers = (state = initialState, action) => {
             return {
                 ...state,
                 ...action.data,
-                data: pagination(action.data.data, action.limit, action.page),
-                pagination: {
-                    limit: action.limit,
-                    total_pages: Math.ceil(action.data.data.length / action.limit),
-                    total_items: action.data.data.length
-                },
+                data: action.data.data,
+                pagination: action.data.pagination,
+                filters: action.data.filters,
                 loaded: true
             }
 

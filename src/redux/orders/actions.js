@@ -1,11 +1,16 @@
 import axios from 'axios'
 import {GET_ORDERS} from "./types";
 import {api} from "../../config";
+import {addQuery} from "../../services/url";
 
-export const GetOrders = (page = 1) => (dispatch, getState) => {
+export const GetOrders = (page = 1, filters = {}) => (dispatch, getState) => {
+    filters['admin'] = true
+    filters['shop'] = localStorage.getItem('shop')
+    filters['page'] = page
+    const str = addQuery(filters)
     axios({
         method: 'GET',
-        url: `${api}/order/?shop=${localStorage.getItem('shop')}`
+        url: `${api}/order/?${str}`
     })
         .then(response => {
             const {config: {data: {pagination}}} = getState()
