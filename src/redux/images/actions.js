@@ -1,8 +1,9 @@
 import axios from 'axios'
 import {api} from "../../config";
-import {GetProduct} from "../product/actions";
+import {GetProduct, LoadingProduct} from "../product/actions";
 
 export const PostImages = (product_id, data) => (dispatch, getState) => {
+    dispatch(LoadingProduct())
     axios({
         method: 'POST',
         url: `${api}/products/${product_id}/images/`,

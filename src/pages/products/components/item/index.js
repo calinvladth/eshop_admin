@@ -5,7 +5,7 @@ import {ProductPathRQ} from "../../../product";
 import {Link} from "react-router-dom";
 import {OrderByIndex} from "../../../../services/reorder";
 
-const ItemComponent = ({product, quantity = false}) => {
+const ItemComponent = ({product, quantity = false, currency}) => {
     return (
         <Link to={`${ProductPathRQ}/${product.id}`}>
             <div className={style.box}>
@@ -20,7 +20,7 @@ const ItemComponent = ({product, quantity = false}) => {
                     <p>{product.name}</p>
                 </div>
                 <div className={style.price}>
-                    <p>{quantity && `${quantity} x `}{product.price} RON</p>
+                    <p>{quantity && `${quantity} x `}{product.price} {currency}</p>
                 </div>
                 <div className={style.status}>
                     <span className={product.active ? style.statusActive : style.statusInactive}>&nbsp;</span>

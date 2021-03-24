@@ -1,12 +1,16 @@
 import axios from "axios";
 import {api} from "../../config";
-import {CLEAR_PRODUCT_STATE, GET_PRODUCT} from "./types";
+import {CLEAR_PRODUCT_STATE, GET_PRODUCT, LOADING_PRODUCT} from "./types";
 import {ProductPathRQ} from "../../pages/product";
 import {ProductsPath} from "../../pages/products";
 import {SetAlert} from "../alerts/actions";
 
 export const ClearProductState = () => (dispatch, getState) => {
     dispatch({type: CLEAR_PRODUCT_STATE})
+}
+
+export const LoadingProduct = () => (dispatch) => {
+    dispatch({type: LOADING_PRODUCT})
 }
 
 export const GetProduct = (pk) => (dispatch, getState) => {

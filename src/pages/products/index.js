@@ -16,7 +16,7 @@ export const ProductsPath = '/products'
 
 const ProductsPage = () => {
     // const [showFilters, setShowFilters] = useState(false)
-    const {products} = useSelector(state => state)
+    const {products, config} = useSelector(state => state)
     const dispatch = useDispatch()
 
     // Query
@@ -54,7 +54,7 @@ const ProductsPage = () => {
                 {
                     products.data.length > 0
                         ?
-                        <ProductsList products={products} pagination={pagination}/>
+                        <ProductsList products={products} pagination={pagination} currency={config.data.payment.currency}/>
                         :
                         <div>
                             <p>No products in the store</p>
@@ -66,7 +66,7 @@ const ProductsPage = () => {
     )
 }
 
-const ProductsList = ({products, pagination}) => (
+const ProductsList = ({products, pagination, currency}) => (
     <Pagination data={products.pagination} action={pagination}>
         <div className={style.list}>
 
@@ -78,7 +78,7 @@ const ProductsList = ({products, pagination}) => (
                 products.loaded && products.success
                     ?
                     products.data.map(o => <div key={o.id}>
-                        <ItemComponent product={o}/>
+                        <ItemComponent product={o} currency={currency}/>
                     </div>)
                     :
                     <div>

@@ -36,7 +36,7 @@ const ProductPage = () => {
         if (product.success && product.loaded) document.title = product.data.name
     }, [product.success, product.loaded, product.data.name])
 
-    if (product.success) {
+    if (product.success && product.loaded) {
         return (
             <div className={style.box}>
                 <section>

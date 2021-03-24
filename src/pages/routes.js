@@ -39,7 +39,7 @@ const Routes = () => {
                                     check_shop.success && check_shop.loaded
                                         ?
                                         <Switch>
-                                            <Route path="/" exact><Redirect to={ProductsPath}/></Route>
+                                            {/*<Route path="/" exact><Redirect to={ProductsPath}/></Route>*/}
                                             <Route path={ProductsPath} exact><ProductsPage/></Route>
                                             <Route path={ProductPath} exact><ProductPage/></Route>
                                             <Route path={NewProductPath} exact><NewProductPage/></Route>
@@ -49,7 +49,8 @@ const Routes = () => {
                                             <Route path={MessagesPath} exact><MessagesPage/></Route>
                                             <Route path={MessagePath} exact><MessagePage/></Route>
                                             <Route path={EmailsPath} exact><EmailsPage/></Route>
-                                            <Route><Redirect to="/"/></Route>
+
+                                            <Route><Redirect to={ProductsPath}/></Route>
                                         </Switch>
                                         :
                                         <Switch>
@@ -58,7 +59,6 @@ const Routes = () => {
                                             <Route><Redirect to={SelectShopPath}/></Route>
                                         </Switch>
                                 }
-
 
                             </div>
                         </div>

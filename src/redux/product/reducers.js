@@ -1,4 +1,4 @@
-import {CLEAR_PRODUCT_STATE, GET_PRODUCT} from "./types";
+import {CLEAR_PRODUCT_STATE, GET_PRODUCT, LOADING_PRODUCT} from "./types";
 
 const initialState = {
     success: false,
@@ -14,6 +14,12 @@ const ProductReducers = (state = initialState, action) => {
                 ...state,
                 ...action.data,
                 loaded: true
+            }
+
+        case LOADING_PRODUCT:
+            return {
+                ...state,
+                loaded: false
             }
 
         case CLEAR_PRODUCT_STATE:
